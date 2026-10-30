@@ -1,0 +1,13 @@
+{
+  "name": "ui-test-studio",
+  "version": "0.1.0",
+  "description": "Desktop app to browse test code, run CLI commands and preview the web app under test",
+  "main": "main.js",
+  "scripts": {
+    "start": "env -u ELECTRON_RUN_AS_NODE electron ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

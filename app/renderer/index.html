@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <title>UI Test Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="layout">
+    <!-- Section 1: Browse and show code -->
+    <section class="panel code-panel">
+      <header class="panel-header">
+        <span id="code-title" class="mono">No file selected</span>
+        <button id="btn-open" class="ghost">Open folder</button>
+      </header>
+      <div class="code-body">
+        <aside id="file-tree" class="file-tree mono"></aside>
+        <div id="code-view" class="code-view mono">
+          <div class="empty">Open a folder and pick a file to view its code</div>
+        </div>
+      </div>
+      <footer class="panel-footer mono">
+        <span id="code-path"></span>
+        <span id="code-info"></span>
+      </footer>
+    </section>
+
+    <!-- Section 2: Terminal -->
+    <section class="panel terminal-panel">
+      <header class="panel-header">
+        <span>Terminal</span>
+        <span id="term-cwd" class="mono muted"></span>
+      </header>
+      <div id="term-output" class="terminal mono"></div>
+      <div class="term-input-row mono">
+        <span class="prompt">$</span>
+        <input id="term-input" spellcheck="false" autocomplete="off"
+               placeholder="Type a command, e.g. npx playwright test" />
+      </div>
+    </section>
+
+    <!-- Section 3: Run web in browser -->
+    <section class="panel browser-panel">
+      <header class="browser-bar">
+        <button id="nav-back" class="icon" title="Back">&#8592;</button>
+        <button id="nav-forward" class="icon" title="Forward">&#8594;</button>
+        <button id="nav-reload" class="icon" title="Reload">&#8635;</button>
+        <input id="url" class="url mono" spellcheck="false" />
+      </header>
+      <webview id="webview" class="webview"></webview>
+    </section>
+  </main>
+
+  <nav class="steps">
+    <button data-action="visual" title="Step through the open spec in the browser"><b>1</b> Run</button>
+    <button data-action="run-file" title="Run the open spec with Playwright CLI"><b>2</b> Run CLI</button>
+    <button data-cmd="npx playwright test"><b>3</b> Run all</button>
+    <button data-cmd="npx playwright show-report"><b>4</b> Report</button>
+    <button data-action="clear"><b>5</b> Clear</button>
+    <button data-action="stop"><b>6</b> Stop</button>
+    <label class="speed">Speed
+      <select id="speed">
+        <option value="slow">Slow</option>
+        <option value="normal" selected>Normal</option>
+        <option value="fast">Fast</option>
+      </select>
+    </label>
+  </nav>
+
+  <!-- Visual run overlay: element focus box + code-to-element connector -->
+  <svg id="connector" class="connector"></svg>
+  <div id="target-box" class="target-box" hidden><span class="badge mono"></span></div>
+
+  <script src="highlight.js"></script>
+  <script src="renderer.js"></script>
+  <script src="runner.js"></script>
+</body>
+</html>
